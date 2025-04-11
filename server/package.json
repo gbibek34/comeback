@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "API and Server",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbibek34/comeback.git"
+  },
+  "author": "gbibek34, safalpokharel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gbibek34/comeback/issues"
+  },
+  "homepage": "https://github.com/gbibek34/comeback#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.13.2",
+    "multer": "^1.4.5-lts.2"
+  }
+}
