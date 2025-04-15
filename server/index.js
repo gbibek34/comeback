@@ -8,6 +8,10 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
+app.get(/(.*)/, (req, res) => {
+    res.send("Path not found!")
+})
+
 app.listen(PORT, () => {
     console.log(`http://localhost:${PORT}`)
 })
