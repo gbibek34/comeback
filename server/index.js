@@ -1,8 +1,12 @@
 const express = require('express')
-const app = express()
-app.use(express.json())
+const connect = require('./config/database')
+
+//Connecting the database
+connect()
 
 const PORT = 5000
+const app = express()
+app.use(express.json())
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
