@@ -1,4 +1,4 @@
-const User = require("../models/userModel")
+const User = require("../models/user.models")
 const bcrypt = require("bcrypt")
 
 const registerUser = async (req, res) => {
@@ -135,3 +135,5 @@ const loginUser = async (req, res) => {
         })
     }
 }
+
+module.exports = { registerUser, loginUser }
