@@ -1,6 +1,13 @@
-const User = require("../models/user.models")
-const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken")
+const User = require("../models/user.models");
+const bcrypt = require("bcrypt");
+const {getToken} = require(getToken);
+
+
+const hash = async(pw) =>{
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(pw, salt);
+    return hashedPassword
+}
 
 const registerUser = async (req, res) => {
     try {
@@ -41,16 +48,13 @@ const registerUser = async (req, res) => {
             });
         }
 
-        // Hashing the password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
 
         // Create a new user instance
         const user = new User({
             firstName,
             lastName,
             email,
-            password: hashedPassword,
+            password: hash(password),
             phone
         });
 
@@ -66,7 +70,8 @@ const registerUser = async (req, res) => {
                 email: user.email,
                 firstName: user.firstName,
                 lastName: user.lastName
-            }
+            },
+            token: getToken(user)
         })
     } catch (error) {
         // Error Response
@@ -77,6 +82,8 @@ const registerUser = async (req, res) => {
         })
     }
 }
+
+
 
 const loginUser = async (req, res) => {
     try {
@@ -118,15 +125,13 @@ const loginUser = async (req, res) => {
             });
         }
 
-        // If the password matches, login is successful.
-        //TODO:
-        // Generate a token (JWT) before sending the response.
+      
         res.status(200).json({
             success: true,
             message: 'Login successful',
+            token: getToken(user)
 
-            //TODO:
-            // token: generateToken(user) // Optionally generate and return a token
+            
         });
     } catch (error) {
         res.status(500).json({
@@ -137,4 +142,63 @@ const loginUser = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, loginUser, }
+const updateProfile = async(req, res) =>{
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+    if (user){
+        user.name = req.body.name || user.name
+        user.email = req.body.email || user.email
+        user.password = hash(req.body.password) || user.password
+        const updatedUser = await user.save();
+        res.status(200).json({
+            success: true,
+            _id: updatedUser.id,
+            name : updatedUser.name,
+            email : updatedUser.email,
+            isAdmin: updatedUser.isAdmin
+        })
+        
+    }else{
+        res.status(401).json({
+            message: "Invalid user data"
+
+        })
+
+    }
+}
+
+const createAdmin = async (req, res) => {
+    try {
+      const { name, email, password } = req.body;
+  
+      let user = await User.findOne({ email });
+  
+      if (user) {
+        
+        user.isAdmin = true;
+        const updatedUser = await user.save();
+        return res.send({
+          message: 'User promoted to admin',
+          user: updatedUser,
+        });
+      } else {
+       
+        const newUser = new User({
+          name,
+          email,
+          password: hash(password),
+          isAdmin: true,
+        });
+  
+        const savedUser = await newUser.save();
+        return res.send({
+          message: 'New admin created',
+          user: savedUser,
+        });
+      }
+    } catch (error) {
+      return res.status(500).send({ message: error.message });
+    }
+  };
+
+module.exports = { registerUser, loginUser, updateProfile, createAdmin }
