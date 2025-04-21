@@ -22,11 +22,7 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Please add a password'],
         minlength: [6, 'Password must be at least 6 characters long']
     },
-    role: {
-        type: String,
-        enum: ['user', 'admin'],
-        default: 'user'
-    },
+
     phone: {
         type: String,
         trim: true

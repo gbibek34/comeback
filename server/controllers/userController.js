@@ -1,7 +1,7 @@
 const User = require("../models/user.models");
 const bcrypt = require("bcrypt");
-const {getToken} = require(getToken);
-
+const {getToken} = require("../utils/authHandler");
+const { successRes, customRes, errorRes } = require("../utils/responseHandler")
 
 const hash = async(pw) =>{
     const salt = await bcrypt.genSalt(10);
@@ -42,10 +42,7 @@ const registerUser = async (req, res) => {
         // Check if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({
-                success: false,
-                message: 'A user with that email already exists!'
-            });
+            return customRes(res,false, 'A user with that email already exists!',400)
         }
 
 
@@ -54,7 +51,7 @@ const registerUser = async (req, res) => {
             firstName,
             lastName,
             email,
-            password: hash(password),
+            password: await hash(password),
             phone
         });
 
@@ -62,24 +59,16 @@ const registerUser = async (req, res) => {
         await user.save();
 
         // Send a success response
-        res.status(201).json({
-            success: true,
-            message: 'User registered successfully!',
-            user: {
-                id: user._id,
-                email: user.email,
-                firstName: user.firstName,
-                lastName: user.lastName
-            },
-            token: getToken(user)
-        })
+        return successRes(res,'User registered successfully!', {user: {
+            id: user._id,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName
+        }}, )
+
     } catch (error) {
-        // Error Response
-        res.status(500).json({
-            success: false,
-            message: 'Unexpected error!',
-            error: error
-        })
+        return errorRes(res, error)
+   
     }
 }
 
@@ -148,7 +137,7 @@ const updateProfile = async(req, res) =>{
     if (user){
         user.name = req.body.name || user.name
         user.email = req.body.email || user.email
-        user.password = hash(req.body.password) || user.password
+        user.password = await hash(req.body.password) || user.password
         const updatedUser = await user.save();
         res.status(200).json({
             success: true,

@@ -1,5 +1,7 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const config = require('config');
+
+
 
 const getToken = (user) =>{
     return jwt.sign(
@@ -9,7 +11,7 @@ const getToken = (user) =>{
         email: user.email,
         isAdmin: user.isAdmin
     },
-    config.JWT_SECRET,
+    process.env.JWT_SECRET,
     {expiresIn: '48h'})
 }
 
@@ -18,7 +20,7 @@ const isAuth = async(req, res, next)=>{
 
     if (token){
         const onlyToken = token.slice(7, token.length)
-        jwt.verify(onlyToken, config.JWT_SECRET, (err, decode) =>{
+        jwt.verify(onlyToken, process.env.JWT_SECRET, (err, decode) =>{
             if (err) {
                 return res.status(401).send({message: "Invalid Token"});
             }
