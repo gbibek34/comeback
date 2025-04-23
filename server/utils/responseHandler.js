@@ -1,11 +1,11 @@
-const successRes = (res, message, data = null) => {
+const successRes = (res, message, code = 200, data = null) => {
     if (data === null) {
-        return res.status(200).json({
+        return res.status(code).json({
             success: true,
             message
         });
     }
-    return res.status(200).json({
+    return res.status(code).json({
         success: true,
         message,
         data

@@ -22,16 +22,19 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Please add a password'],
         minlength: [6, 'Password must be at least 6 characters long']
     },
-
     phone: {
         type: String,
         trim: true
     },
-    isAdmin:{
+    isAdmin: {
         type: Boolean,
         required: true,
         default: false
-    }
+    },
+    addresses: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Address"
+    }]
 }, { timestamps: true })
 
 module.exports = mongoose.model('User', userSchema)
