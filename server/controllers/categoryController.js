@@ -1,4 +1,4 @@
-const Category = require("../models/category.models")
+const Category = require("../models/category.model")
 const { successRes, customRes, errorRes } = require("../utils/responseHandler")
 
 // Get all categories
@@ -39,7 +39,7 @@ const addCategory = async (req, res) => {
         // Save category
         await category.save()
 
-        return customRes(res, true, "Category Created!", 201, category)
+        return successRes(res, "Category Created!", 201, category)
     } catch (error) {
         return errorRes(res, error)
     }
