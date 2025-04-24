@@ -39,7 +39,7 @@ const addCategory = async (req, res) => {
         // Save category
         await category.save()
 
-        return successRes(res, "Category Created!", 201, category)
+        return successRes(res, "Category Created!", category)
     } catch (error) {
         return errorRes(res, error)
     }
