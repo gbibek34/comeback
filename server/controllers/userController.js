@@ -56,7 +56,7 @@ const registerUser = async (req, res) => {
                 firstName: user.firstName,
                 lastName: user.lastName
             }
-        },)
+        })
 
     } catch (error) {
         return errorRes(res, error)
@@ -110,7 +110,7 @@ const updateProfile = async (req, res) => {
 
         const updatedUser = await User.findByIdAndUpdate(
             userId,
-            { firstname, lastname, email, password, phone },
+            { firstname, lastname, email, password: await hash(password), phone },
             { new: true }
         )
 
