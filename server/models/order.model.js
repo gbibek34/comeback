@@ -8,6 +8,7 @@ const orderSchema = mongoose.Schema({
     },
     orderItems: [
         {
+            _id: false,
             product: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Product",
@@ -23,6 +24,11 @@ const orderSchema = mongoose.Schema({
     totalPrice: {
         type: Number,
         required: true
+    },
+    shippingLocation: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Address",
+        required: "true"
     },
     isPaid: {
         type: Boolean,
