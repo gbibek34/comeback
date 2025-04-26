@@ -5,6 +5,8 @@ const categoryUrl = require('./routes/categoryRoutes')
 const productUrl = require('./routes/productRoutes')
 const userUrl = require("./routes/userRoutes")
 const addressUrl = require("./routes/addressRoutes")
+const cartUrl = require("./routes/cartRoutes")
+const orderUrl = require("./routes/orderRoutes")
 
 //Connecting the database
 connect(process.env.MONGO_URI)
@@ -17,6 +19,8 @@ app.use('/api/category/', categoryUrl)
 app.use('/api/product/', productUrl)
 app.use('/api/user/', userUrl)
 app.use('/api/address/', addressUrl)
+app.use('/api/cart/', cartUrl)
+app.use('/api/order/', orderUrl)
 
 app.get('/', (req, res) => {
     res.send('Hello World!')

@@ -1,6 +1,11 @@
 const express = require("express")
-const { addCart } = require("../controllers/cartController")
+const { addtoCart, getCart } = require("../controllers/cartController")
+const { isAuth } = require("../utils/authHandler")
 
 const router = express.Router()
 
-router.post("/add", addCart)
+router.post("/add/:id", isAuth, addtoCart)
+
+router.get("/current", isAuth, getCart)
+
+module.exports = router

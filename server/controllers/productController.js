@@ -3,7 +3,7 @@ const { successRes, customRes, errorRes } = require("../utils/responseHandler")
 
 const allProducts = async (req, res) => {
     try {
-        const products = await Category.find({})
+        const products = await Product.find({})
 
         if (!products || products.length === 0) {
             return customRes(res, false, "No products found", 404)
@@ -81,4 +81,4 @@ const deleteProduct = async (req, res) => {
     }
 }
 
-module.exports = { addProduct, updateProduct, deleteProduct }
+module.exports = { addProduct, updateProduct, deleteProduct, allProducts }
