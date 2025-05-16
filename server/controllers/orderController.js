@@ -47,4 +47,15 @@ const newOrder = async (req, res) => {
     }
 }
 
-module.exports = { newOrder }
+const getOrder = async (req, res) => {
+    try {
+        const isAdmin = req.user.isAdmin
+
+        console.log(isAdmin)
+
+    } catch (error) {
+        errorRes(res, error)
+    }
+}
+
+module.exports = { newOrder, getOrder }
