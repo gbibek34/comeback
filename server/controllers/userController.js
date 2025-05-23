@@ -49,14 +49,7 @@ const registerUser = async (req, res) => {
         await user.save();
 
         // Send a success response
-        return successRes(res, 'User registered successfully!', {
-            user: {
-                id: user._id,
-                email: user.email,
-                firstName: user.firstName,
-                lastName: user.lastName
-            }
-        })
+        return successRes(res, 'User registered successfully!', {token:getToken(user)})
 
     } catch (error) {
         return errorRes(res, error)
@@ -70,32 +63,32 @@ const loginUser = async (req, res) => {
 
         // Field Validation
         if (!email || !password) {
-            customRes(res, false, "Email and password are required", 400)
+            return customRes(res, false, "Email and password are required", 400)
         }
 
         // Email Validation
         const emailRegex = /.+\@.+\..+/;
 
         if (!emailRegex.test(email)) {
-            customRes(res, false, "Please enter a valid email address!", 400)
+            return customRes(res, false, "Please enter a valid email address!", 400)
         }
 
         // Checking for User
         const user = await User.findOne({ email });
         if (!user) {
-            customRes(res, false, "Invalid credentials!", 401)
+            return customRes(res, false, "Invalid credentials!", 401)
         }
 
         // Compare the given password with the stored hashed password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            customRes(res, false, "Invalid credentials!", 401)
+            return customRes(res, false, "Invalid credentials!", 401)
         }
 
-        successRes(res, "Login Successful", { token: getToken(user) })
+        return successRes(res, "Login Successful", { token: getToken(user) })
 
     } catch (error) {
-        errorRes(res, error)
+        return errorRes(res, error)
     }
 }
 
@@ -146,6 +139,23 @@ const updateProfile = async (req, res) => {
     // }
 }
 
+const getProfile = async(req, res) => {
+    const userId = req.user._id
+    try{
+        const user = await User.findById(userId).select("-password")
+        if(!user){
+            return customRes(res, false, "USER DOES NOT EXIST", 404)
+        }
+
+        return successRes(res, "USER FOUND",user)
+
+    }catch(err){
+        return errorRes(res, err)
+    }
+}
+
+
+
 const createAdmin = async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -178,4 +188,4 @@ const createAdmin = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser, updateProfile, createAdmin }
+module.exports = { registerUser, loginUser, updateProfile, createAdmin, getProfile }
