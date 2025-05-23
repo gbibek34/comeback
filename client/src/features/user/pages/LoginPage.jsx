@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import LoginCard from "../../../User/components/LoginCard";
+import LoginCard from "../components/LoginCard";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {

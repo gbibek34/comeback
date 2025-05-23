@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import AddressCard from "../../../User/components/AddressCard";
+import AddressCard from "../components/AddressCard";
 import { useNavigate } from "react-router-dom";
 
 export default function AddressPage() {
