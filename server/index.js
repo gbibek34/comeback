@@ -7,6 +7,7 @@ const userUrl = require("./routes/userRoutes")
 const addressUrl = require("./routes/addressRoutes")
 const cartUrl = require("./routes/cartRoutes")
 const orderUrl = require("./routes/orderRoutes")
+const cors = require('cors')
 
 //Connecting the database
 connect(process.env.MONGO_URI)
@@ -14,7 +15,7 @@ connect(process.env.MONGO_URI)
 const PORT = process.env.PORT || 5000
 const app = express()
 app.use(express.json())
-
+app.use(cors())
 app.use('/api/category/', categoryUrl)
 app.use('/api/product/', productUrl)
 app.use('/api/user/', userUrl)
