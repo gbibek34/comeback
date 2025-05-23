@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import ProfileCard from "../../../User/components/ProfileCard";
+import ProfileCard from "../components/ProfileCard";
 
 export default function ProfilePage() {
   const [userInfoCore, setUserInfoCore] = React.useState({});

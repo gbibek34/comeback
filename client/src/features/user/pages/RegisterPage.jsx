@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import RegisterCard from "../../../User/components/RegisterCard";
+import RegisterCard from "../components/RegisterCard";
 import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
