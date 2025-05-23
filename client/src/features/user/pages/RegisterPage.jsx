@@ -1,0 +1,58 @@
+import React from "react";
+import axios from "axios";
+import RegisterCard from "../../../User/components/RegisterCard";
+import { useNavigate } from "react-router-dom";
+
+export default function RegisterPage() {
+  const [formData, setFormData] = React.useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+  });
+
+  const navigate = useNavigate();
+
+  const handle = (key) => (val) =>
+    setFormData((prevForm) => ({ ...prevForm, [key]: val }));
+
+  console.log(formData);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/user/signup",
+        {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+          confirmPassword: formData.confirmPassword,
+          phone: formData.phone,
+        }
+      );
+      console.log(response.data);
+      localStorage.setItem("token", response.data.data.token);
+      alert("Registration Successful");
+      navigate("/address");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return (
+    <RegisterCard
+      firstName={formData.firstName}
+      lastName={formData.lastName}
+      email={formData.email}
+      password={formData.password}
+      confirmPassword={formData.confirmPassword}
+      phone={formData.phone}
+      handle={handle}
+      onSubmit={handleSubmit}
+    />
+  );
+}
