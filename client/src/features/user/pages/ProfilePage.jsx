@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import ProfileCard from "../components/ProfileCard";
+import { API_URL } from "../../../config";
 
 export default function ProfilePage() {
   const [userInfoCore, setUserInfoCore] = React.useState({});
@@ -11,7 +12,7 @@ export default function ProfilePage() {
     const fetchProfile = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/user/profile",
+          `${API_URL}/user/profile`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -27,7 +28,7 @@ export default function ProfilePage() {
     const fetchAddress = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/address/all",
+          `${API_URL}/address/all`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

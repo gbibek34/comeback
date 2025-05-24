@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import AddressCard from "../components/AddressCard";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../../config";
 
 export default function AddressPage() {
   const [formData, setFormData] = React.useState({
@@ -22,7 +23,7 @@ export default function AddressPage() {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/address/add",
+        `${API_URL}/api/address/add`,
         {
           street: formData.street,
           city: formData.city,

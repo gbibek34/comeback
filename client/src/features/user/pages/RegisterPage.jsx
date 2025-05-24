@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import RegisterCard from "../components/RegisterCard";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../../config";
 
 export default function RegisterPage() {
   const [formData, setFormData] = React.useState({
@@ -24,7 +25,7 @@ export default function RegisterPage() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/signup",
+        `${API_URL}/user/signup`,
         {
           firstName: formData.firstName,
           lastName: formData.lastName,

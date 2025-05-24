@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import LoginCard from "../components/LoginCard";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../../config"
 
 export default function LoginPage() {
   const [formData, setFormData] = React.useState({
@@ -20,7 +21,7 @@ export default function LoginPage() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/login",
+        `${API_URL}/user/login`,
         {
           email: formData.email,
           password: formData.password,
