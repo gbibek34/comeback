@@ -3,6 +3,8 @@ import LoginPage from "./features/user/pages/LoginPage";
 import RegisterPage from "./features/user/pages/RegisterPage";
 import AddressPage from "./features/user/pages/AddressPage";
 import ProfilePage from "./features/user/pages/ProfilePage";
+import EditProfilePage from "./features/user/pages/EditProfilePage";
+import EditAddressPage from "./features/user/pages/EditAddressPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -13,6 +15,8 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/address" element={<AddressPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/editProfile" element={<EditProfilePage/>}/>
+        <Route path="/editAddress" element={<EditAddressPage/>}/>
       </Routes>
     </BrowserRouter>
   );
