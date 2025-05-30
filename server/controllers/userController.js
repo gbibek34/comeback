@@ -95,15 +95,15 @@ const loginUser = async (req, res) => {
 const updateProfile = async (req, res) => {
     try {
         const { id: userId } = req.params
-        const { firstname, lastname, email, password, phone } = req.body
+        const { firstName, lastName, email, password, phone } = req.body
 
-        if (!firstname || !lastname || !email || !password || !phone) {
+        if (!firstName || !lastName || !email || !password || !phone) {
             return customRes(res, false, "All fields are required!", 400)
         }
 
         const updatedUser = await User.findByIdAndUpdate(
             userId,
-            { firstname, lastname, email, password: await hash(password), phone },
+            { firstName, lastName, email, password: await hash(password), phone },
             { new: true }
         )
 
@@ -142,7 +142,7 @@ const updateProfile = async (req, res) => {
 const getProfile = async(req, res) => {
     const userId = req.user._id
     try{
-        const user = await User.findById(userId).select("-password")
+        const user = await User.findById(userId)
         if(!user){
             return customRes(res, false, "USER DOES NOT EXIST", 404)
         }
