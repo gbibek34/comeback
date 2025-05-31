@@ -23,7 +23,7 @@ export default function AddressPage() {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
-        `${API_URL}/api/address/add`,
+        `${API_URL}/address/add`,
         {
           street: formData.street,
           city: formData.city,

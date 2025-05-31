@@ -19,7 +19,6 @@ function App() {
         <Route path="/editProfile" element={<EditProfilePage />} />
         <Route path="/editAddress" element={<EditAddressPage />} />
         <Route path="/products" element={<AllProductsPage />} />
-        <Route path="/products" element={<AllProductsPage />} />
       </Routes>
     </BrowserRouter>
   );
