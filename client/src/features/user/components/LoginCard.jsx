@@ -1,5 +1,5 @@
 import React from "react";
-import InputField from "./InputField";
+import InputField from "../../../components/InputField";
 import { Link } from "react-router-dom";
 
 export default function LoginCard({ email, password, handle, onSubmit }) {

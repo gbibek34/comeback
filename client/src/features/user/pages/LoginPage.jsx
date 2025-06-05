@@ -15,7 +15,7 @@ export default function LoginPage() {
   const handle = (key) => (val) =>
     setFormData((prevForm) => ({ ...prevForm, [key]: val }));
 
-  console.log(formData);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,11 +27,11 @@ export default function LoginPage() {
           password: formData.password,
         }
       );
-      console.log(response.data.data.token);
       localStorage.setItem("token", response.data.data.token);
       alert("Login Successful !!!");
       navigate("/profile");
     } catch (err) {
+      alert("NO SUCH PROFILE FOUND")
       console.log(err);
     }
   };

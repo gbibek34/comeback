@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import {Edit} from "lucide-react"
-import InputField from '../components/InputField';
+import { Save } from 'lucide-react';
+import InputField from '../../../components/InputField';
 import { API_URL } from "../../../config";
 import {jwtDecode} from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +28,7 @@ function EditProfilePage() {
     const handle = (key) => (val)=>{
         return setFormData((prevFormData) => ({...prevFormData,[key]: val}))
     }
-    console.log(formData)
+
 
     const handleSave = async (e) => {
         e.preventDefault();
@@ -43,9 +43,7 @@ function EditProfilePage() {
             }
           );
           alert('Profile updated successfully!');
-          navigate('/editAddress',{
-            state: userAddress
-          })
+          navigate('/profile')
         } catch (error) {
           console.error("Failed to update profile:", error);
           alert('Error updating profile.');
@@ -90,9 +88,9 @@ function EditProfilePage() {
           </div>
 
 
-            <button className="save-button" onClick={handleSave}>
-              <Edit size={14} />
-              Save & Edit Address 
+            <button className="save-btn" onClick={handleSave}>
+              <Save size={14} />
+              Save Profile 
             </button>
                 
 

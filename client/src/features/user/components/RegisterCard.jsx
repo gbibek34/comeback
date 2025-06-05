@@ -1,5 +1,5 @@
 import React from "react";
-import InputField from "./InputField";
+import InputField from "../../../components/InputField";
 
 export default function RegisterCard({ firstName = "", lastName = "", email, password, confirmPassword = "", phone = "", handle, onSubmit }) {
     return (
@@ -45,7 +45,7 @@ export default function RegisterCard({ firstName = "", lastName = "", email, pas
                             onChange={handle("phone")}
                         />
                     </div>
-                    <button className="register-button button">Next</button>
+                    <button className="register-button button">Register</button>
                 </div>
             </div>
         </form>
