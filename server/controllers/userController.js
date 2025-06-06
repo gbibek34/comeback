@@ -173,7 +173,7 @@ const createAdmin = async (req, res) => {
             const newUser = new User({
                 name,
                 email,
-                password: hash(password),
+                password: await hash(password),
                 isAdmin: true,
             });
 
@@ -188,4 +188,17 @@ const createAdmin = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser, updateProfile, createAdmin, getProfile }
+const deleteProfile = async(req, res) =>{
+    const userId = req.user._id;
+    try{
+        const user = await User.findByIdAndDelete(userId);
+        if (!user){
+            return customRes(res, false, "USER NOT FOUND !!!",404)
+        }
+        return successRes(res, "USER PROFILE DELETED SUCCESSFULLY!!")
+    }catch(err){
+        return errorRes(res, err)
+    }
+}
+
+module.exports = { registerUser, loginUser, updateProfile, createAdmin, getProfile, deleteProfile }

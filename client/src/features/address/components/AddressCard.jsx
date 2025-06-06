@@ -1,5 +1,5 @@
 import React from "react";
-import InputField from "./InputField";
+import InputField from "../../../components/InputField";
 
 export default function AddressCard({street, city, state, zip, country,handle, onSubmit }){
     return(
@@ -48,7 +48,7 @@ export default function AddressCard({street, city, state, zip, country,handle, o
                     
                 </div>
     
-                <button className="address-button button">Register</button>
+                <button className="address-button button">Add Address</button>
             </div>
         </div>
         

@@ -37,9 +37,9 @@ export default function AddressPage() {
           },
         }
       );
-      console.log(response.data);
+    
       alert("DONE!!");
-      navigate("/");
+      navigate("/profile");
     } catch (err) {
       console.log(err);
     }

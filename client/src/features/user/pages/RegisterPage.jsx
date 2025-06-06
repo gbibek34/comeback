@@ -19,7 +19,7 @@ export default function RegisterPage() {
   const handle = (key) => (val) =>
     setFormData((prevForm) => ({ ...prevForm, [key]: val }));
 
-  console.log(formData);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();

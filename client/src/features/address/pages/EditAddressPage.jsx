@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-
+import { Save } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
-import InputField from '../components/InputField'
+import InputField from '../../../components/InputField'
 import { useNavigate } from 'react-router-dom'
 import { API_URL } from "../../../config";
 
@@ -10,10 +10,11 @@ import { API_URL } from "../../../config";
 function EditAddressPage() {
     const location = useLocation()
    
-    const userAddress = location.state || {}
+    const { userAddress = {} } = location.state || {};
     const token = localStorage.getItem('token')
     const addId = userAddress._id;
     const navigate = useNavigate();
+    console.log(userAddress)
 
     const [formData, setFormData] = React.useState({
         street:userAddress.street,
@@ -26,7 +27,7 @@ function EditAddressPage() {
     const handle = (key) => (val)=>{
         return setFormData((prevFormData) => ({...prevFormData,[key]: val}))
     }
-    console.log(formData)
+
 
     const handleSave = async (e) => {
         e.preventDefault();
@@ -49,6 +50,12 @@ function EditAddressPage() {
           alert('Error updating address.');
         }
       };
+
+
+
+
+
+
   return (
     <div className="profile-card">
           <div className="edit-profile-form">
@@ -82,9 +89,16 @@ function EditAddressPage() {
               value={formData.country}
               onChange={handle('country')}
             />
-            <button className="save-button" onClick={handleSave}>
-                Save Address
+
+           
+            <button className="save-btn" onClick={handleSave}>
+               <Save size={14}/>
+               Save Address
             </button>
+ 
+
+        
+
           </div>
 
 

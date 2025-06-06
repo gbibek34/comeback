@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import { Edit } from "lucide-react"
-import InputField from '../components/InputField';
+import { Save } from 'lucide-react';
+import InputField from '../../../components/InputField';
 import { API_URL } from "../../../config";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
@@ -17,41 +17,38 @@ function EditProfilePage() {
   const decoded = jwtDecode(token);
   const userId = decoded._id;
 
-  const [formData, setFormData] = React.useState({
-    firstName: userInfoCore.firstName,
-    lastName: userInfoCore.lastName,
-    email: userInfoCore.email,
-    password: "",
-    phone: userInfoCore.phone
-  })
-
-  const handle = (key) => (val) => {
-    return setFormData((prevFormData) => ({ ...prevFormData, [key]: val }))
-  }
-  console.log(formData)
-
-  const handleSave = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.put(
-        `${API_URL}/user/update/${userId}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(response)
-      alert('Profile updated successfully!');
-      navigate('/editAddress', {
-        state: userAddress
-      })
-    } catch (error) {
-      console.error("Failed to update profile:", error);
-      alert('Error updating profile.');
+    const [formData, setFormData] = React.useState({
+         firstName:userInfoCore.firstName,
+         lastName:userInfoCore.lastName,
+         email:userInfoCore.email,
+         password:"",
+         phone:userInfoCore.phone
+         })
+    
+    const handle = (key) => (val)=>{
+        return setFormData((prevFormData) => ({...prevFormData,[key]: val}))
     }
-  };
+
+
+    const handleSave = async (e) => {
+        e.preventDefault();
+        try {
+          const response = await axios.put(
+            `${API_URL}/user/update/${userId}`,
+            formData,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          alert('Profile updated successfully!');
+          navigate('/profile')
+        } catch (error) {
+          console.error("Failed to update profile:", error);
+          alert('Error updating profile.');
+        }
+      };
 
 
 
@@ -91,11 +88,11 @@ function EditProfilePage() {
       </div>
 
 
-      <button className="save-button" onClick={handleSave}>
-        <Edit size={14} />
-        Save & Edit Address
-      </button>
-
+            <button className="save-btn" onClick={handleSave}>
+              <Save size={14} />
+              Save Profile 
+            </button>
+                
 
     </div>
   );
