@@ -6,6 +6,7 @@ import ProfilePage from "./features/user/pages/ProfilePage";
 import EditProfilePage from "./features/user/pages/EditProfilePage";
 import EditAddressPage from "./features/address/pages/EditAddressPage";
 import AllProductsPage from "./features/products/pages/AllProductsPage";
+import AdminDashPage from "./features/user/pages/AdminDashPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/editProfile" element={<EditProfilePage />} />
         <Route path="/editAddress" element={<EditAddressPage />} />
         <Route path="/products" element={<AllProductsPage />} />
+        <Route path="/admin" element={<AdminDashPage />} />
       </Routes>
     </BrowserRouter>
   );

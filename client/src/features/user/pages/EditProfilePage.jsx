@@ -4,18 +4,18 @@ import { useLocation } from 'react-router-dom';
 import { Save } from 'lucide-react';
 import InputField from '../../../components/InputField';
 import { API_URL } from "../../../config";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
 
 
 function EditProfilePage() {
-    const location = useLocation()
-    const navigate = useNavigate()
-    const {userInfoCore, userAddress} = location.state || {}
-    console.log(userInfoCore, userAddress)
-    const token = localStorage.getItem('token')
-    const decoded = jwtDecode(token);
-    const userId = decoded._id;  
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { userInfoCore, userAddress } = location.state || {}
+  console.log(userInfoCore, userAddress)
+  const token = localStorage.getItem('token')
+  const decoded = jwtDecode(token);
+  const userId = decoded._id;
 
     const [formData, setFormData] = React.useState({
          firstName:userInfoCore.firstName,
@@ -52,40 +52,40 @@ function EditProfilePage() {
 
 
 
-    return (
-        <div className="profile-card">
-          <div className="edit-profile-form">
-            <InputField
-              label="First Name"
-              type="text"
-              value={formData.firstName}
-              onChange={handle('firstName')}
-            />
-            <InputField
-              label="Last Name"
-              type="text"
-              value={formData.lastName}
-              onChange={handle('lastName')}
-            />
-            <InputField
-              label="Email"
-              type="email"
-              value={formData.email}
-              onChange={handle('email')}
-            />
-            <InputField
-              label="Password"
-              type="password"
-              value={formData.password}
-              onChange={handle('password')}
-            />
-            <InputField
-              label="Phone Number"
-              type="number"
-              value={formData.phone}
-              onChange={handle('phone')}
-            />
-          </div>
+  return (
+    <div className="profile-card">
+      <div className="edit-profile-form">
+        <InputField
+          label="First Name"
+          type="text"
+          value={formData.firstName}
+          onChange={handle('firstName')}
+        />
+        <InputField
+          label="Last Name"
+          type="text"
+          value={formData.lastName}
+          onChange={handle('lastName')}
+        />
+        <InputField
+          label="Email"
+          type="email"
+          value={formData.email}
+          onChange={handle('email')}
+        />
+        <InputField
+          label="Password"
+          type="password"
+          value={formData.password}
+          onChange={handle('password')}
+        />
+        <InputField
+          label="Phone Number"
+          type="number"
+          value={formData.phone}
+          onChange={handle('phone')}
+        />
+      </div>
 
 
             <button className="save-btn" onClick={handleSave}>
@@ -94,8 +94,8 @@ function EditProfilePage() {
             </button>
                 
 
-        </div>
-      );
+    </div>
+  );
 }
 
 export default EditProfilePage
